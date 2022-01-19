@@ -19,7 +19,7 @@ inpUtilisateur.addEventListener('input', (e) => {
         allImg[0].style.display = "inline";
         /*on ajoute l'icone en vert [0] valide*/
         allImg[0].src = "ressources/check.svg";
-        //on efface le message d'alerte [0] avec le css display none
+        //on efface le message d'alerte [0] avec le css display none après qu'il a été montré
         allSpan[0].style.display = "none";
     }   
     else {
@@ -29,6 +29,27 @@ inpUtilisateur.addEventListener('input', (e) => {
         allImg[0].src = "ressources/error.svg";
         //on affiche le message d'alerte [0] avec le css display none
         allSpan[0].style.display = "inline";
+    }
+})
+
+inpMail.addEventListener('input', (e) => {
+
+    const regexEmail = /\S+@\S+\.\S+/;
+    
+     /*si la valeur de l'évènement correspond au regex (===0)*/ 
+    if(e.target.value.search(regexEmail) === 0){
+
+        allImg[1].style.display = "inline";
+        allImg[1].src = "ressources/check.svg";
+        allSpan[1].style.display = "none";
+
+    /*si la valeur de l'évènement ne correspond pas  au regex (=== -1)*/  
+    } else if(e.target.value.search(regexEmail) === -1) {
+
+        allImg[1].style.display = "inline";
+        allImg[1].src = "ressources/error.svg";
+        allSpan[1].style.display = "inline";
+
     }
 
 })
