@@ -64,6 +64,7 @@ inpMail.addEventListener('input', (e) => {
 
 //Validation mot de passe
 
+/*valeur de l'input*/
 let valeurInp;
 /* "^" = tout ce qui n'est pas caractères normaux donc caractères spéciaux */
 const specialCar = /[^a-zA-Z0-9]/;
@@ -134,6 +135,34 @@ inpMdp.addEventListener('input', (e) => {
     } else {
         allSpan[2].style.display = "none";
         allImg[2].src = "ressources/check.svg";
+    }
+
+    
+    // force mdp
+
+    /*si la longueur de la valeur saisie est <=6 et >0 on affiche la ligne jaune*/
+    if(valeurInp.length <= 6 && valeurInp.length > 0){
+        allLigne[0].style.display = 'block';
+        allLigne[1].style.display = 'none';
+        allLigne[2].style.display = 'none';
+    }
+    /*sinon si la longueur de la valeur saisie est >6 et <=9 on affiche la ligne rouge*/
+    else if (valeurInp.length > 6 && valeurInp.length <= 9) {
+        allLigne[0].style.display = 'block';
+        allLigne[1].style.display = 'block';
+        allLigne[2].style.display = 'none';
+    }
+    /*sinon si la longueur de la valeur saisie est  >9 on affiche la ligne verte*/
+    else if (valeurInp.length > 9) {
+        allLigne[0].style.display = 'block';
+        allLigne[1].style.display = 'block';
+        allLigne[2].style.display = 'block';
+    }
+    /*sinon si la longueur de la valeur saisie est ====0 on affiche aucune ligne*/
+    else if (valeurInp.length === 0) {
+        allLigne[0].style.display = 'none';
+        allLigne[1].style.display = 'none';
+        allLigne[2].style.display = 'none';
     }
 
 })
