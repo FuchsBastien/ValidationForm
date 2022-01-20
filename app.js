@@ -11,7 +11,10 @@ const allSpan = document.querySelectorAll('span');
 const allLigne = document.querySelectorAll('.ligne div');
 
 
-/*A la saisie de l'input */
+
+//Validation pseudo
+
+//A la saisie de l'input */
 inpUtilisateur.addEventListener('input', (e) => {
     /*si la valeur de l'évènement dépasse 3 caractères*/ 
     if(e.target.value.length >= 3) {
@@ -32,6 +35,10 @@ inpUtilisateur.addEventListener('input', (e) => {
     }
 })
 
+
+
+//Validation mail
+
 inpMail.addEventListener('input', (e) => {
 
     const regexEmail = /\S+@\S+\.\S+/;
@@ -43,13 +50,90 @@ inpMail.addEventListener('input', (e) => {
         allImg[1].src = "ressources/check.svg";
         allSpan[1].style.display = "none";
 
-    /*si la valeur de l'évènement ne correspond pas  au regex (=== -1)*/  
+    /*si la valeur de l'évènement ne correspond pas au regex (=== -1)*/  
     } else if(e.target.value.search(regexEmail) === -1) {
 
         allImg[1].style.display = "inline";
         allImg[1].src = "ressources/error.svg";
         allSpan[1].style.display = "inline";
+    }
 
+})
+
+
+
+//Validation mot de passe
+
+let valeurInp;
+/* "^" = tout ce qui n'est pas caractères normaux donc caractères spéciaux */
+const specialCar = /[^a-zA-Z0-9]/;
+/* "i" = majuscule inclus*/
+const alphabet = /[a-z]/i;
+const chiffres = /[0-9]/;
+
+
+let objValidation = {
+    symbole : 0,
+    lettre : 0,
+    chiffre : 0
+}
+
+inpMdp.addEventListener('input', (e) => {
+    
+    /*on rentre la valeur de l'input pour éviter d'écrire e.target.value tout le temps*/
+    valeurInp = e.target.value;
+
+    /*si la valeur de l'input contient un caractère spécial, on ajoute 1 à objValidation.symbole*/
+    if(valeurInp.search(specialCar) !== -1){
+        objValidation.symbole = 1;
+    }
+    /*si la valeur de l'input contient un caractère de l'alphabet, on ajoute 1 à objValidation.alphabet*/
+    if(valeurInp.search(alphabet) !== -1){
+        objValidation.lettre = 1;
+    }
+    /*si la valeur de l'input contient un chiffre, on ajoute 1 à objValidation.chiffres*/
+    if(valeurInp.search(chiffres) !== -1){
+        objValidation.chiffre = 1;
+    }
+    
+    console.log( objValidation);
+
+    /*si on supprime des choses de l'input = deleteContentBackward*/
+    if(e.inputType = 'deleteContentBackward'){
+            /*si la valeur de l'input ne contient pas un caractère spécial, on ajoute 0 à objValidation.symbole*/
+            if(valeurInp.search(specialCar) === -1){
+                objValidation.symbole = 0;
+            }
+            /*si la valeur de l'input ne contient pas un caractère de l'alphabet, on ajoute 0 à objValidation.alphabet*/
+            if(valeurInp.search(alphabet) === -1){
+                objValidation.lettre = 0;
+            }
+            /*si la valeur de l'input ne contient pas un chiffre, on ajoute 0 à objValidation.chiffres*/
+            if(valeurInp.search(chiffres) === -1){
+                objValidation.chiffre = 0;
+            }
+    } 
+
+    console.log( objValidation);
+    
+    
+    let testAll = 0;
+    /*boucle for in qui sert à itérer à travers un objet*/
+    for(const property in objValidation){
+        /*On itère à travers chaque propriété et compter le nombre de 1 à rajouter dans testAll*/
+        if(objValidation[property] > 0){
+            testAll++;
+        }
+    }
+    /*si la valeur de l'input ne contient les 3 validations, on ajoute à cet input l'icône en rouge*/
+    if(testAll < 3){
+        allSpan[2].style.display = "inline";
+        allImg[2].style.display = "inline";
+        allImg[2].src = "ressources/error.svg";
+        /*sinon on rajoute l'icône en vert*/
+    } else {
+        allSpan[2].style.display = "none";
+        allImg[2].src = "ressources/check.svg";
     }
 
 })
